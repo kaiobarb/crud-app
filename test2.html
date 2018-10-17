@@ -7,7 +7,9 @@
     <div id="container">
       <input type="text" id="container" placeholder="enter text" v-model="value">
       <p>{{ value }}</p>
-      <button v-on:click="consoleWrite">Write to Database</button>
+      <button v-on:click="write">Write to Database</button>
+      <button v-on:click="say('hi')">Say hi</button>
+      <button v-on:click="say('what')">Say what</button>
     </div>
 
 
@@ -28,6 +30,8 @@
 	</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.11.10/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
     <script>
 
     	var database = firebase.database();
@@ -41,14 +45,18 @@
         	methods: {
 
         		consoleWrite: function () {
-        			console.log(value);
+        			console.log(this.value);
         		},
 
         		write: function (value) {
 		  				firebase.database().ref('users/test').set({
-		    				word: value
+		    				word: this.value
 		  				});
-				}
+				},
+
+				say: function (message) {
+      				alert(message)
+    			}
         	}
 
       	});
