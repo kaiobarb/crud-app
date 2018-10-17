@@ -1,0 +1,62 @@
+<html>
+  <head>
+    
+  </head>
+  <body>
+    
+    <div id="container">
+      <input type="text" id="container" placeholder="enter text" v-model="value">
+      <p>{{ value }}</p>
+      <button v-on:click="consoleWrite">Write to Database</button>
+    </div>
+
+
+    <!-- Firebase Script -->
+
+	<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyDZLqLXOQ1xyF3WUzASz-SqJasIbhB5ILs",
+	    authDomain: "share-yourself-artists.firebaseapp.com",
+	    databaseURL: "https://share-yourself-artists.firebaseio.com",
+	    projectId: "share-yourself-artists",
+	    storageBucket: "share-yourself-artists.appspot.com",
+	    messagingSenderId: "853488759389"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.11.10/vue.min.js"></script>
+    <script>
+
+    	var database = firebase.database();
+      
+      	new Vue({
+        	el: '#container',
+        	data: {
+          		value: 'hello',
+        	},
+
+        	methods: {
+
+        		consoleWrite: function () {
+        			console.log(value);
+        		},
+
+        		write: function (value) {
+		  				firebase.database().ref('users/test').set({
+		    				word: value
+		  				});
+				}
+        	}
+
+      	});
+      
+      
+    </script>
+
+    
+
+  </body>
+</html>
